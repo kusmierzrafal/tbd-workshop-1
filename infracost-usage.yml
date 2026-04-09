@@ -1,17 +1,11 @@
-google_storage_bucket.data:
-  storage_gb: 50
-  class: "STANDARD"
-  requests_per_month:
-    get: 10000
-    put: 5000
+version: 0.1
 
-google_storage_bucket.code:
-  storage_gb: 5
-  class: "STANDARD"
-  requests_per_month:
-    get: 500
-    put: 200
+resource_usage:
+  google_storage_bucket:
+    monthly_storage_gb: 55
+    monthly_class_a_operations: 5200
+    monthly_class_b_operations: 10500
 
-google_artifact_registry_repository.default:
-  storage_gb: 10
-  network_egress_gb: 5
+  google_artifact_registry_repository:
+    storage_gb: 10
+    monthly_egress_gb: 5
