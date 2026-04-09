@@ -169,9 +169,11 @@ For all the resources of type: `google_artifact_registry_repository`, `google_st
 create a sample usage profiles and add it to the Infracost task in CI/CD pipeline. Usage file [example](https://github.com/infracost/infracost/blob/master/infracost-usage-example.yml)
 
    ***place the expected consumption you entered here***
-
+  ![infracost-usage.yml](img/phase1-task8-a.png)
    ***place the screenshot from infracost output here***
-
+   ![infracost estimated cost](img/phase1-task8-b.png)
+   ![estimated cost table](img/phase1-task8-c.png)
+   
 9. Find and correct the error in spark-job.py
 
     After `terraform apply` completes, connect to the Airflow cluster:
@@ -213,7 +215,7 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
 
     ***place a screenshot of the successful DAG run in Airflow UI***
 
-11. Create a BigQuery dataset and an external table using SQL
+10. Create a BigQuery dataset and an external table using SQL
 
     Using the ORC data produced by the Spark job in task 9, create a BigQuery dataset and an external table.
 
@@ -226,11 +228,11 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
 
     ***why does ORC not require a table schema?***
 
-12. Add support for preemptible/spot instances in a Dataproc cluster
+11. Add support for preemptible/spot instances in a Dataproc cluster
 
     ***place the link to the modified file and inserted terraform code***
 
-13. Triggered Terraform Destroy on Schedule or After PR Merge. Goal: make sure we never forget to clean up resources and burn money.
+12. Triggered Terraform Destroy on Schedule or After PR Merge. Goal: make sure we never forget to clean up resources and burn money.
 
 Add a new GitHub Actions workflow that:
   1. runs terraform destroy -auto-approve
