@@ -213,7 +213,7 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
 
     ***place a screenshot of the successful DAG run in Airflow UI***
 
-11. Create a BigQuery dataset and an external table using SQL
+10. Create a BigQuery dataset and an external table using SQL
 
     Using the ORC data produced by the Spark job in task 9, create a BigQuery dataset and an external table.
 
@@ -223,6 +223,13 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
     ```
 
     ***place the SQL code and query output here***
+
+    **The SQL code with creating an external table and running it in the terminal:**
+    ![Create external table](img/phase_1_10_create_table.png)
+
+    **Sample query with its output:**
+    ![Query](img/phase_1_10_query.png)
+
 
     ***why does ORC not require a table schema?***
 
