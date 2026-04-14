@@ -233,11 +233,11 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
 
     ***why does ORC not require a table schema?***
 
-12. Add support for preemptible/spot instances in a Dataproc cluster
+11. Add support for preemptible/spot instances in a Dataproc cluster
 
     ***place the link to the modified file and inserted terraform code***
 
-13. Triggered Terraform Destroy on Schedule or After PR Merge. Goal: make sure we never forget to clean up resources and burn money.
+12. Triggered Terraform Destroy on Schedule or After PR Merge. Goal: make sure we never forget to clean up resources and burn money.
 
 Add a new GitHub Actions workflow that:
   1. runs terraform destroy -auto-approve
