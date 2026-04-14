@@ -164,15 +164,41 @@ IMPORTANT ❗ ❗ ❗ Please remember to destroy all the resources after each wo
 
     ***place your diagram here***
 
+   ```mermaid
+   graph LR
+    subgraph ServiceAccounts [Service Accounts]
+        AF[Airflow SA]
+        DP[Dataproc SA]
+        LAB[Lab SA]
+    end
+
+    subgraph Buckets [GCS Buckets]
+        BC[code]
+        BD[data]
+        BS[state]
+        BT[dataproc-temp / staging]
+    end
+
+    AF -->|reads| BC
+    DP -->|reads| BC
+    DP -->|reads/writes| BD
+    DP -->|manages| BT
+    LAB -->|manages| BS
+   ```
+
 8. Create a new PR and add costs by entering the expected consumption into Infracost
 For all the resources of type: `google_artifact_registry_repository`, `google_storage_bucket`
 create a sample usage profiles and add it to the Infracost task in CI/CD pipeline. Usage file [example](https://github.com/infracost/infracost/blob/master/infracost-usage-example.yml)
 
    ***place the expected consumption you entered here***
 
+  ![infracost-usage.yml](img/phase1-task8-a.png)
+  
    ***place the screenshot from infracost output here***
-
-9. Find and correct the error in spark-job.py
+   ![infracost estimated cost](img/phase1-task8-b.png)
+   ![estimated cost table](img/phase1-task8-c.png)
+   
+10. Find and correct the error in spark-job.py
 
     After `terraform apply` completes, connect to the Airflow cluster:
     ```bash
@@ -191,27 +217,38 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
     a) In the Airflow UI (http://AIRFLOW_EXTERNAL_IP:8080, login: admin/admin), find the `dataproc_job` DAG, unpause it and trigger it manually.
 
     ***place a screenshot of the DAG in the Airflow UI***
+   ![failed task](img/phase1-task9-fail.png)
 
     b) The DAG will fail. Examine the task logs in the Airflow UI to find the root cause.
 
     ***paste the relevant error message from the Airflow task log***
+    
+   ![error msg](img/phase1-task9-error.png)
 
-    ***describe what the error is and how you found it***
+   ***describe what the error is and how you found it***
 
-    c) Fix the error in `modules/data-pipeline/resources/spark-job.py` and re-upload the file to GCS:
+   The error was caused by using an incorrect bucket that does not exist, so job cannot write data to it. It was fixed by naming correct bucket in spark-job.py.
+
+   I found the error by reviewing the Airflow logs, then I used the link available there to open the Google Cloud Console, where I found the error message.
+
+  c) Fix the error in `modules/data-pipeline/resources/spark-job.py` and re-upload the file to GCS:
     ```bash
     gsutil cp modules/data-pipeline/resources/spark-job.py gs://PROJECT_NAME-code/spark-job.py
     ```
     Then trigger the DAG again from the Airflow UI.
 
-    ***paste the link to the fixed file***
+  ***paste the link to the fixed file***
+    
+    https://github.com/kusmierzrafal/tbd-workshop-1/blob/phase1-task9/modules/data-pipeline/resources/spark-job.py
 
-    d) Verify the DAG completes successfully and check that ORC files were written to the data bucket:
+  d) Verify the DAG completes successfully and check that ORC files were written to the data bucket:
     ```bash
     gsutil ls gs://PROJECT_NAME-data/data/shakespeare/
     ```
 
-    ***place a screenshot of the successful DAG run in Airflow UI***
+  ***place a screenshot of the successful DAG run in Airflow UI***
+    
+   ![success task](img/phase1-task9-success.png)
 
 10. Create a BigQuery dataset and an external table using SQL
 
