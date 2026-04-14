@@ -13,6 +13,7 @@ jobs:
   destroy-release:
     if: |
       github.event_name == 'schedule' ||
+      github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'pull_request' &&
        github.event.pull_request.merged == true &&
        contains(github.event.pull_request.title, '[CLEANUP]'))
