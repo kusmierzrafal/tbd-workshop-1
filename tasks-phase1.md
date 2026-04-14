@@ -163,7 +163,28 @@ IMPORTANT ❗ ❗ ❗ Please remember to destroy all the resources after each wo
     2. List of buckets for disposal
 
     ***place your diagram here***
-   (Powstaje)
+
+   ```mermaid
+   graph LR
+    subgraph ServiceAccounts [Service Accounts]
+        AF[Airflow SA]
+        DP[Dataproc SA]
+        LAB[Lab SA]
+    end
+
+    subgraph Buckets [GCS Buckets]
+        BC[code]
+        BD[data]
+        BS[state]
+        BT[dataproc-temp / staging]
+    end
+
+    AF -->|reads| BC
+    DP -->|reads| BC
+    DP -->|reads/writes| BD
+    DP -->|manages| BT
+    LAB -->|manages| BS
+   ```
 
 8. Create a new PR and add costs by entering the expected consumption into Infracost
 For all the resources of type: `google_artifact_registry_repository`, `google_storage_bucket`
