@@ -198,7 +198,7 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
    ![infracost estimated cost](img/phase1-task8-b.png)
    ![estimated cost table](img/phase1-task8-c.png)
    
-10. Find and correct the error in spark-job.py
+9. Find and correct the error in spark-job.py
 
     After `terraform apply` completes, connect to the Airflow cluster:
     ```bash
