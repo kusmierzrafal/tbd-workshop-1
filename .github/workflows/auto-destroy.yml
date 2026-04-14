@@ -1,8 +1,9 @@
 name: auto-destroy
 
 on:
+  workflow_dispatch:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '*/15 * * * *'
 
   pull_request:
     types: [closed]
