@@ -165,7 +165,8 @@ jobs:
                         --usage-file=infracost-usage.yml \
                         --format=json \
                         --compare-to=/tmp/infracost-base.json \
-                        --out-file=/tmp/infracost.json
+                        --out-file=/tmp/infracost.json \
+                        --show-skipped
     - name: Post Infracost comment
       run: |
           infracost comment github --path=/tmp/infracost.json \
@@ -174,3 +175,17 @@ jobs:
                                    --pull-request=${{github.event.pull_request.number}} \
                                    --behavior=update
 
+    - name: Generate Infracost full report
+      run: |
+          infracost breakdown --path="." \
+                              --usage-file=infracost-usage.yml \
+                              --format=table \
+                              --out-file=/tmp/infracost-full.json
+
+    - name: Post full Infracost comment
+      run: |
+          infracost comment github --path=/tmp/infracost-full.json \
+                                   --repo=$GITHUB_REPOSITORY \
+                                   --github-token=${{secrets.GITHUB_TOKEN}} \
+                                   --pull-request=${{github.event.pull_request.number}} \
+                                   --behavior=update

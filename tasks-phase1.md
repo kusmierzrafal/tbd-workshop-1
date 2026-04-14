@@ -250,7 +250,7 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
     
    ![success task](img/phase1-task9-success.png)
 
-11. Create a BigQuery dataset and an external table using SQL
+10. Create a BigQuery dataset and an external table using SQL
 
     Using the ORC data produced by the Spark job in task 9, create a BigQuery dataset and an external table.
 
@@ -261,13 +261,20 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
 
     ***place the SQL code and query output here***
 
+    **The SQL code with creating an external table and running it in the terminal:**
+    ![Create external table](img/phase_1_10_create_table.png)
+
+    **Sample query with its output:**
+    ![Query](img/phase_1_10_query.png)
+
+
     ***why does ORC not require a table schema?***
 
-12. Add support for preemptible/spot instances in a Dataproc cluster
+11. Add support for preemptible/spot instances in a Dataproc cluster
 
     ***place the link to the modified file and inserted terraform code***
 
-13. Triggered Terraform Destroy on Schedule or After PR Merge. Goal: make sure we never forget to clean up resources and burn money.
+12. Triggered Terraform Destroy on Schedule or After PR Merge. Goal: make sure we never forget to clean up resources and burn money.
 
 Add a new GitHub Actions workflow that:
   1. runs terraform destroy -auto-approve
