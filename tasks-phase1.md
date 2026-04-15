@@ -380,12 +380,12 @@ jobs:
 **On schedule**:
 
 Selected auto-destroy #5 from several auto-destroys:
-[on schedule](/img/phase_1_12_schedule.png)
-[on schedule](/img/phase_1_12_schedule_log.png)
+![on schedule](/img/phase_1_12_schedule.png)
+![on schedule log](/img/phase_1_12_schedule_log.png)
 
 **After PR Merge**:
-[on schedule](/img/phase_1_12_pr.png)
-[on schedule](/img/phase_1_12_pr_log.png)
+![pr](/img/phase_1_12_pr.png)
+![pr log](/img/phase_1_12_pr_log.png)
 
 ***write one sentence why scheduling cleanup helps in this workshop***
 
