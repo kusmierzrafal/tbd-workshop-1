@@ -262,17 +262,47 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
     ***place the SQL code and query output here***
 
     **The SQL code with creating an external table and running it in the terminal:**
+
+    [create_external_table.sql (click the link here)](https://github.com/kusmierzrafal/tbd-workshop-1/blob/master/big_query_dataset/phase_1_task_10/create_external_table.sql):
+    ```sql
+      CREATE OR REPLACE EXTERNAL TABLE `tbd-2026l-5.shakespeare.phase_1_task_10`
+      OPTIONS (
+        format = "ORC",
+        uris = ["gs://tbd-2026l-5-data/data/shakespeare/*.orc"]
+      );
+    ```
+
     ![Create external table](img/phase_1_10_create_table.png)
 
-    **Sample query with its output:**
+    **The sample query with its output:**
+    [query.sql (click the link here)](https://github.com/kusmierzrafal/tbd-workshop-1/blob/master/big_query_dataset/phase_1_task_10/query.sql):
+    ```sql
+      SELECT word, sum_word_count
+      FROM `tbd-2026l-5.shakespeare.phase_1_task_10`
+      ORDER BY sum_word_count DESC
+      LIMIT 15
+    ```
     ![Query](img/phase_1_10_query.png)
 
 
     ***why does ORC not require a table schema?***
 
+
 11. Add support for preemptible/spot instances in a Dataproc cluster
 
     ***place the link to the modified file and inserted terraform code***
+
+    The link to the modified file:
+    https://github.com/kusmierzrafal/tbd-workshop-1/blob/master/modules/dataproc/main.tf
+
+    main.tf:
+    ```
+      # beginning of line with added support for preemptible/spot instances
+      preemptible_worker_config {
+        num_instances = 2
+      }
+      # end of line with added support for preemptible/spot instances
+    ```
 
 12. Triggered Terraform Destroy on Schedule or After PR Merge. Goal: make sure we never forget to clean up resources and burn money.
 
@@ -293,6 +323,67 @@ Hint: use the existing `.github/workflows/destroy.yml` as a starting point.
 
 ***paste workflow YAML here***
 
+[auto-destroy.yml (click the link here)](https://github.com/kusmierzrafal/tbd-workshop-1/blob/master/.github/workflows/auto-destroy.yml):
+```yml
+name: auto-destroy
+
+permissions: read-all
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/15 * * * *'
+
+  pull_request:
+    types: [closed]
+
+jobs:
+  destroy-release:
+    if: |
+      github.event_name == 'schedule' ||
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'pull_request' &&
+       github.event.pull_request.merged == true &&
+       contains(github.event.pull_request.title, '[CLEANUP]'))
+
+    runs-on: ubuntu-latest
+  # Add "id-token" with the intended permissions.
+    permissions:
+      contents: write
+      id-token: write
+      pull-requests: write
+      issues: write
+
+    steps:
+    - uses: 'actions/checkout@v3'
+    - uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.11.0
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        token_format: 'access_token'
+        workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER_NAME }}
+        service_account: ${{ secrets.GCP_WORKLOAD_IDENTITY_SA_EMAIL }}
+    - name: Terraform Init
+      id: init
+      run: terraform init -backend-config=env/backend.tfvars
+    - name: Terraform Destroy
+      id: destroy
+      run: terraform destroy -no-color -var-file env/project.tfvars -auto-approve
+      continue-on-error: false
+```
+
 ***paste screenshot/log snippet confirming the auto-destroy ran***
 
+**On schedule**:
+
+Selected auto-destroy #5 from several auto-destroys:
+[on schedule](/img/phase_1_12_schedule.png)
+[on schedule](/img/phase_1_12_schedule_log.png)
+
+**After PR Merge**:
+
 ***write one sentence why scheduling cleanup helps in this workshop***
+
+With a cleanup schedule, you have the flexibility to automatically remove Terreform infrastructure when it's not needed, so you don't increase your GCP billing, and you don't have to worry about it.

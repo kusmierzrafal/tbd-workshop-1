@@ -135,9 +135,11 @@ resource "google_dataproc_cluster" "tbd-dataproc-cluster" {
       }
 
     }
-
+    
+    # beginning of line with added support for preemptible/spot instances
     preemptible_worker_config {
       num_instances = 2
     }
+    # end of line with added support for preemptible/spot instances
   }
 }

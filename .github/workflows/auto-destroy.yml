@@ -1,5 +1,6 @@
 name: auto-destroy
 
+permissions: read-all
 on:
   workflow_dispatch:
   schedule:
@@ -8,7 +9,6 @@ on:
   pull_request:
     types: [closed]
 
-permissions: read-all
 jobs:
   destroy-release:
     if: |
