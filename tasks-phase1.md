@@ -381,11 +381,13 @@ jobs:
 
 **On schedule**:
 
-Selected auto-destroy #5 from several auto-destroys:
+The link to selected auto-destroy: https://github.com/kusmierzrafal/tbd-workshop-1/actions/runs/24426917978
+
 ![on schedule](/img/phase_1_12_schedule.png)
 ![on schedule log](/img/phase_1_12_schedule_log.png)
 
 **After PR Merge**:
+
 The link to merged PR: https://github.com/kusmierzrafal/tbd-workshop-1/pull/13
 
 ![pr](/img/phase_1_12_pr.png)
