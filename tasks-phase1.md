@@ -288,6 +288,8 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
 
     ***why does ORC not require a table schema?***
 
+    ORC does not require a separate schema because it already contains it in the file tail, or more precisely in the file footer, and it is this tail that is read first to understand the structure of the data (source: DeepWiki, *ORC File Format*, https://deepwiki.com/apache/orc/2-orc-file-format, online access: 15.04.2026). 
+
 
 11. Add support for preemptible/spot instances in a Dataproc cluster
 
@@ -296,7 +298,7 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
     The link to the modified file:
     https://github.com/kusmierzrafal/tbd-workshop-1/blob/master/modules/dataproc/main.tf
 
-    main.tf:
+    The inserted code in the modified file:
     ```
       # beginning of line with added support for preemptible/spot instances
       preemptible_worker_config {
