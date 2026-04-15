@@ -381,7 +381,7 @@ jobs:
 
 **On schedule**:
 
-The link to selected auto-destroy: https://github.com/kusmierzrafal/tbd-workshop-1/actions/runs/24426917978
+The selected auto-destroy:
 
 ![on schedule](/img/phase_1_12_schedule.png)
 ![on schedule log](/img/phase_1_12_schedule_log.png)
