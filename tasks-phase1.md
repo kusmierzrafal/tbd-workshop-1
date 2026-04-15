@@ -387,3 +387,5 @@ Selected auto-destroy #5 from several auto-destroys:
 ***write one sentence why scheduling cleanup helps in this workshop***
 
 With a cleanup schedule, you have the flexibility to automatically remove Terreform infrastructure when it's not needed, so you don't increase your GCP billing, and you don't have to worry about it.
+
+
