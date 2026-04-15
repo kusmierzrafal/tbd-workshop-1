@@ -263,7 +263,7 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
 
     **The SQL code with creating an external table and running it in the terminal:**
 
-    [create_external_table.sql (click the link here)](https://github.com/kusmierzrafal/tbd-workshop-1/blob/master/big_query_dataset/phase_1_task_10/create_external_table.sql):
+    [create_external_table.sql (click the link here to go to the file)](https://github.com/kusmierzrafal/tbd-workshop-1/blob/master/big_query_dataset/phase_1_task_10/create_external_table.sql):
     ```sql
       CREATE OR REPLACE EXTERNAL TABLE `tbd-2026l-5.shakespeare.phase_1_task_10`
       OPTIONS (
@@ -275,7 +275,8 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
     ![Create external table](img/phase_1_10_create_table.png)
 
     **The sample query with its output:**
-    [query.sql (click the link here)](https://github.com/kusmierzrafal/tbd-workshop-1/blob/master/big_query_dataset/phase_1_task_10/query.sql):
+
+    [query.sql (click the link here to go to the file)](https://github.com/kusmierzrafal/tbd-workshop-1/blob/master/big_query_dataset/phase_1_task_10/query.sql):
     ```sql
       SELECT word, sum_word_count
       FROM `tbd-2026l-5.shakespeare.phase_1_task_10`
@@ -323,7 +324,7 @@ Hint: use the existing `.github/workflows/destroy.yml` as a starting point.
 
 ***paste workflow YAML here***
 
-[auto-destroy.yml (click the link here)](https://github.com/kusmierzrafal/tbd-workshop-1/blob/master/.github/workflows/auto-destroy.yml):
+[auto-destroy.yml (click the link here to go to the file)](https://github.com/kusmierzrafal/tbd-workshop-1/blob/master/.github/workflows/auto-destroy.yml):
 ```yml
 name: auto-destroy
 
@@ -383,9 +384,11 @@ Selected auto-destroy #5 from several auto-destroys:
 [on schedule](/img/phase_1_12_schedule_log.png)
 
 **After PR Merge**:
+[on schedule](/img/phase_1_12_pr.png)
+[on schedule](/img/phase_1_12_pr_log.png)
 
 ***write one sentence why scheduling cleanup helps in this workshop***
 
-With a cleanup schedule, you have the flexibility to automatically remove Terreform infrastructure when it's not needed, so you don't increase your GCP billing, and you don't have to worry about it.
+With a cleanup schedule, you have the flexibility to automatically remove Terreform infrastructure when you know that it's not needed, so you don't increase your GCP billing, and you don't have to worry about it.
 
 
